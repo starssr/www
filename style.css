@@ -443,10 +443,12 @@ header.scrolled {
 }
 
 .hero-main-title {
-    font-size: clamp(3rem, 8vw, 6rem);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
     font-weight: 800;
-    line-height: 1.1;
+    line-height: 1.2;
     letter-spacing: -0.02em;
+    word-break: keep-all;
+    overflow-wrap: break-word;
 }
 
 .title-line-1 {
