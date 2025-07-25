@@ -54,85 +54,228 @@ class SimpleLoadingController {
     }
 }
 
-// 微信弹窗控制器
-class WeChatModalController {
+// 微信弹窗控制器 - 增强版
+class WechatModalController {
     constructor() {
         this.modal = document.getElementById('wechat-modal');
         this.wechatBtn = document.getElementById('wechat-btn');
         this.closeBtn = document.getElementById('close-modal');
+        this.modalOverlay = document.getElementById('modal-overlay');
+        
+        this.isOpen = false;
+        this.focusableElements = [];
+        this.firstFocusableElement = null;
+        this.lastFocusableElement = null;
         
         this.initEventListeners();
+        this.initAccessibility();
     }
     
     initEventListeners() {
-        if (!this.wechatBtn || !this.modal || !this.closeBtn) {
-            console.error('微信弹窗元素未找到');
-            return;
+        // 微信按钮多重事件监听
+        if (this.wechatBtn) {
+            // 点击事件
+            this.wechatBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('微信按钮点击事件触发');
+                this.showModal();
+            });
+            
+            // 键盘事件
+            this.wechatBtn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    console.log('微信按钮键盘事件触发');
+                    this.showModal();
+                }
+            });
+            
+            // 移动端触摸事件
+            this.wechatBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                console.log('微信按钮触摸开始');
+            });
+            
+            this.wechatBtn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('微信按钮触摸结束，显示弹窗');
+                this.showModal();
+            });
+            
+            // 鼠标事件
+            this.wechatBtn.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                console.log('微信按钮鼠标按下');
+            });
         }
         
-        // 微信按钮点击事件 - 增强版
-        this.wechatBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('微信按钮点击事件触发');
-            this.showModal();
-        });
-        
-        // 移动端触摸支持
-        this.wechatBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-        });
-        
-        this.wechatBtn.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('微信按钮触摸事件触发');
-            this.showModal();
-        });
-        
-        // 额外的鼠标事件支持
-        this.wechatBtn.addEventListener('mousedown', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-        });
-        
-        // 关闭按钮
-        this.closeBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            this.hideModal();
-        });
-        
-        // 点击背景关闭
-        this.modal.addEventListener('click', (e) => {
-            if (e.target === this.modal) {
+        // 关闭按钮事件
+        if (this.closeBtn) {
+            this.closeBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('关闭按钮被点击');
                 this.hideModal();
-            }
-        });
+            });
+            
+            this.closeBtn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.hideModal();
+                }
+            });
+        }
         
-        // ESC键关闭
+        // 背景遮罩点击关闭
+        if (this.modalOverlay) {
+            this.modalOverlay.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('背景遮罩被点击');
+                this.hideModal();
+            });
+        }
+        
+        // 弹窗容器点击事件（防止冒泡）
+        if (this.modal) {
+            this.modal.addEventListener('click', (e) => {
+                if (e.target === this.modal) {
+                    console.log('弹窗背景被点击');
+                    this.hideModal();
+                }
+            });
+        }
+        
+        // 全局键盘事件
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.modal.style.display === 'flex') {
-                this.hideModal();
+            if (this.isOpen) {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    console.log('ESC键被按下，关闭弹窗');
+                    this.hideModal();
+                } else if (e.key === 'Tab') {
+                    this.handleTabKey(e);
+                }
             }
         });
     }
     
-    showModal() {
-        if (!this.modal) return;
-        
-        this.modal.style.display = 'flex';
-        this.modal.setAttribute('aria-hidden', 'false');
-        
-        // 聚焦到关闭按钮
-        setTimeout(() => {
-            if (this.closeBtn) {
-                this.closeBtn.focus();
-            }
-        }, 100);
-        
-        console.log('微信弹窗已显示');
+    initAccessibility() {
+        // 初始化可聚焦元素
+        this.updateFocusableElements();
     }
+    
+    updateFocusableElements() {
+        if (this.modal) {
+            const focusableSelectors = [
+                'button:not([disabled])',
+                'input:not([disabled])',
+                'select:not([disabled])',
+                'textarea:not([disabled])',
+                'a[href]',
+                '[tabindex]:not([tabindex="-1"])'
+            ];
+            
+            this.focusableElements = this.modal.querySelectorAll(focusableSelectors.join(', '));
+            this.firstFocusableElement = this.focusableElements[0];
+            this.lastFocusableElement = this.focusableElements[this.focusableElements.length - 1];
+        }
+    }
+    
+    handleTabKey(e) {
+        if (this.focusableElements.length === 0) return;
+        
+        if (e.shiftKey) {
+            // Shift + Tab
+            if (document.activeElement === this.firstFocusableElement) {
+                e.preventDefault();
+                this.lastFocusableElement?.focus();
+            }
+        } else {
+            // Tab
+            if (document.activeElement === this.lastFocusableElement) {
+                e.preventDefault();
+                this.firstFocusableElement?.focus();
+            }
+        }
+    }
+    
+    showModal() {
+        if (this.modal && !this.isOpen) {
+            console.log('显示微信弹窗');
+            
+            // 更新按钮状态
+            if (this.wechatBtn) {
+                this.wechatBtn.setAttribute('aria-expanded', 'true');
+            }
+            
+            // 显示弹窗
+            this.modal.style.display = 'flex';
+            this.modal.classList.add('show');
+            this.modal.setAttribute('aria-hidden', 'false');
+            
+            // 禁用背景滚动
+            document.body.style.overflow = 'hidden';
+            
+            // 更新状态
+            this.isOpen = true;
+            
+            // 焦点管理
+            this.updateFocusableElements();
+            setTimeout(() => {
+                this.closeBtn?.focus();
+            }, 100);
+            
+            console.log('微信弹窗已显示');
+        }
+    }
+    
+    hideModal() {
+        if (this.modal && this.isOpen) {
+            console.log('隐藏微信弹窗');
+            
+            // 更新按钮状态
+            if (this.wechatBtn) {
+                this.wechatBtn.setAttribute('aria-expanded', 'false');
+            }
+            
+            // 隐藏弹窗
+            this.modal.classList.remove('show');
+            this.modal.setAttribute('aria-hidden', 'true');
+            
+            // 恢复背景滚动
+            document.body.style.overflow = 'auto';
+            
+            // 更新状态
+            this.isOpen = false;
+            
+            // 延迟隐藏
+            setTimeout(() => {
+                this.modal.style.display = 'none';
+            }, 300);
+            
+            // 返回焦点
+            setTimeout(() => {
+                this.wechatBtn?.focus();
+            }, 50);
+            
+            console.log('微信弹窗已隐藏');
+        }
+    }
+    
+    // 公共方法
+    toggle() {
+        if (this.isOpen) {
+            this.hideModal();
+        } else {
+            this.showModal();
+        }
+    }
+    
+    isModalOpen() {
+        return this.isOpen;
+    }
+}
     
     hideModal() {
         if (!this.modal) return;

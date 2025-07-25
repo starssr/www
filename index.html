@@ -246,7 +246,16 @@
                     <h3>云云星羽</h3>
                     <p>致力于提供高质量的网络技术服务、软件开发与人工智能解决方案，助力企业数字化转型。</p>
                     <div class="social-links">
-                        <a href="#" id="wechat-btn" title="微信联系" aria-label="微信联系"><i class="fab fa-weixin"></i></a>
+                        <button type="button" 
+                                id="wechat-btn" 
+                                class="social-btn wechat-trigger" 
+                                title="微信联系" 
+                                aria-label="点击查看微信二维码"
+                                aria-describedby="wechat-modal"
+                                aria-expanded="false"
+                                data-modal-target="wechat-modal">
+                            <i class="fab fa-weixin" aria-hidden="true"></i>
+                        </button>
                         <a href="https://qm.qq.com/q/f3Cncqhupy" target="_blank" rel="noopener" title="QQ联系"
                             aria-label="QQ联系"><i class="fab fa-qq"></i></a>
                         <a href="https://weibo.com/starssr" target="_blank" rel="noopener" title="微博" aria-label="微博"><i
@@ -273,14 +282,46 @@
     </footer>
 
     <!-- 微信二维码弹窗 -->
-    <div id="wechat-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-desc"
-        aria-hidden="true">
-        <div class="modal-content">
-            <button class="close-btn" id="close-modal" aria-label="关闭弹窗" type="button">&times;</button>
+    <div id="wechat-modal" 
+         class="modal" 
+         role="dialog" 
+         aria-labelledby="modal-title" 
+         aria-describedby="modal-desc"
+         aria-hidden="true"
+         aria-modal="true"
+         tabindex="-1"
+         data-modal="wechat">
+        <div class="modal-overlay" id="modal-overlay" aria-hidden="true"></div>
+        <div class="modal-content" role="document">
+            <div class="modal-header">
+                <h4 id="modal-title" class="modal-title">微信扫码联系我们</h4>
+                <button class="close-btn" 
+                        id="close-modal" 
+                        type="button"
+                        aria-label="关闭微信二维码弹窗" 
+                        title="关闭弹窗"
+                        data-dismiss="modal">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
             <div class="modal-body">
-                <h4 id="modal-title">微信扫码联系我们</h4>
-                <img src="wdwx.webp" alt="云云星羽微信二维码" class="qrcode-img" loading="lazy">
-                <p id="modal-desc">扫描二维码添加微信好友<br>或直接搜索微信号：<strong>starssr-com</strong></p>
+                <div class="qrcode-container">
+                    <img src="wdwx.webp" 
+                         alt="云云星羽微信二维码，扫描添加好友" 
+                         class="qrcode-img" 
+                         loading="lazy"
+                         width="200"
+                         height="200">
+                </div>
+                <div class="modal-text">
+                    <p id="modal-desc" class="modal-description">
+                        扫描上方二维码添加微信好友<br>
+                        或直接搜索微信号：<strong>starssr-com</strong>
+                    </p>
+                    <div class="modal-tips">
+                        <small>💡 提示：长按二维码可保存到相册</small>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

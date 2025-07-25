@@ -621,25 +621,44 @@ footer {
     gap: 15px;
 }
 
-.social-links a {
-    display: inline-block;
+.social-links a,
+.social-links .social-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: 40px;
     height: 40px;
-    background: #34495e;
+    background: rgba(255, 255, 255, 0.1);
     color: white;
-    text-align: center;
-    line-height: 40px;
+    text-decoration: none;
     border-radius: 50%;
     transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    font-size: 16px;
 }
 
-.social-links a:hover {
-    background: #667eea;
-    transform: translateY(-3px);
+.social-links .social-btn {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
 }
 
-.footer-column ul {
-    list-style: none;
+.social-links a:hover,
+.social-links .social-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.social-links .social-btn:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+.social-links .social-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .footer-column li {
