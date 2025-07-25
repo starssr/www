@@ -1,19 +1,20 @@
-// 全屏加载动画控制器 - 强制跨终端一致
+// 全屏加载动画控制器 - 使用新的进度条组件
 class FullscreenLoadingController {
     constructor() {
         this.overlay = document.getElementById('loading-overlay');
-        this.progressBar = document.getElementById('progressBarFullscreen');
-        this.progressPercentage = document.getElementById('progressPercentage');
         this.particles = document.getElementById('particles');
+        this.progressContainer = document.getElementById('loading-progress-container');
         
         this.progress = 0;
         this.targetProgress = 0;
         this.isLoading = true;
         this.loadingStartTime = Date.now();
+        this.progressBar = null;
         
         // 强制禁用任何智能适配
         this.disableResponsiveFeatures();
         this.createParticles();
+        this.initProgressBar();
         this.startProgressAnimation();
     }
     

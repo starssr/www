@@ -174,60 +174,7 @@ html::-webkit-scrollbar {
     letter-spacing: 0.3px !important;
 }
 
-/* 进度条样式 - 固定尺寸 */
-.progress-container-fullscreen {
-    width: 350px !important;
-    height: 8px !important;
-    background: rgba(255, 255, 255, 0.2) !important;
-    border-radius: 10px !important;
-    margin: 0 auto 20px !important;
-    overflow: hidden !important;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3) !important;
-}
-
-.progress-bar-fullscreen {
-    height: 100% !important;
-    width: 0% !important;
-    background: linear-gradient(90deg, 
-        #ffd700 0%, 
-        #ffed4e 25%, 
-        #ffc107 50%, 
-        #ffb300 75%, 
-        #ffd700 100%) !important;
-    border-radius: 10px !important;
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6) !important;
-    position: relative !important;
-}
-
-.progress-bar-fullscreen::after {
-    content: '' !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: -100% !important;
-    width: 100% !important;
-    height: 100% !important;
-    background: linear-gradient(90deg, 
-        transparent, 
-        rgba(255, 255, 255, 0.4), 
-        transparent) !important;
-    animation: shimmer 1.5s infinite !important;
-}
-
-@keyframes shimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
-}
-
-.progress-percentage {
-    color: #ffd700 !important;
-    font-size: 24px !important;
-    font-weight: 600 !important;
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8) !important;
-    letter-spacing: 1px !important;
-    opacity: 0 !important;
-    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards !important;
-}
+/* 移除旧的进度条样式，使用新的进度条组件 */
 
 @keyframes fadeInUp {
     from {
@@ -252,11 +199,12 @@ html::-webkit-scrollbar {
 
 .particle {
     position: absolute;
-    width: 2px;
-    height: 2px;
-    background: rgba(255, 255, 255, 0.6);
+    width: 1px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
     border-radius: 50%;
-    animation: float 6s infinite linear;
+    animation: float 8s infinite linear;
+    opacity: 0.5;
 }
 
 @keyframes float {
