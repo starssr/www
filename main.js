@@ -277,15 +277,6 @@ class WechatModalController {
     }
 }
     
-    hideModal() {
-        if (!this.modal) return;
-        
-        this.modal.style.display = 'none';
-        this.modal.setAttribute('aria-hidden', 'true');
-        
-        console.log('微信弹窗已隐藏');
-    }
-}
 
 // 回到顶部按钮控制器
 class BackToTopController {
@@ -406,7 +397,7 @@ class MainApp {
     initComponents() {
         try {
             // 初始化微信弹窗
-            this.wechatModalController = new WeChatModalController();
+            this.wechatModalController = new WechatModalController();
             
             // 初始化回到顶部按钮
             this.backToTopController = new BackToTopController();
