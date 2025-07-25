@@ -910,3 +910,33 @@ footer {
         background-size: 100% 100%;
     }
 }
+
+/* 星星旋转动画 */
+.rotating-star {
+    animation: rotate 2s linear infinite;
+    transform-origin: center;
+}
+
+/* 环形进度条动画 */
+.progress-circle {
+    animation: progressFill 1s ease-out forwards;
+    transform-origin: center;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes progressFill {
+    from {
+        stroke-dashoffset: 283;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
