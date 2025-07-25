@@ -1,20 +1,20 @@
 {
-  "path": "d:\\下载\\starssr",
-  "desc": "这是一个云云星羽网络科技工作室的企业官网项目，包含现代化的加载动画、响应式设计、平滑滚动导航、微信二维码弹窗等功能。网站采用渐变背景设计，具有专业的视觉效果和良好的用户体验。",
-  "id": "59abc8cb47434a6687bc959ae0fc3b80",
+  "path": "d:\\下载\\starssr\\dist",
+  "desc": "云云星羽网络科技工作室官网 - 简约科技风设计，包含动态粒子背景、3D科技图形、响应式布局等现代化功能",
+  "id": "35dd77b6133745179d1801452e01108a",
   "data": {
-    "spaceKey": "59abc8cb47434a6687bc959ae0fc3b80",
+    "spaceKey": "35dd77b6133745179d1801452e01108a",
     "connections": {
-      "webIDE": "https://59abc8cb47434a6687bc959ae0fc3b80.ap-singapore.cloudstudio.club",
-      "preview": "",
-      "api": "https://59abc8cb47434a6687bc959ae0fc3b80--api.ap-singapore.cloudstudio.club",
-      "pty": "https://59abc8cb47434a6687bc959ae0fc3b80--pty.ap-singapore.cloudstudio.club"
+      "webIDE": "https://35dd77b6133745179d1801452e01108a.ap-singapore.cloudstudio.club",
+      "preview": "https://35dd77b6133745179d1801452e01108a--{port}.ap-singapore.cloudstudio.club",
+      "api": "https://35dd77b6133745179d1801452e01108a--api.ap-singapore.cloudstudio.club",
+      "pty": "https://35dd77b6133745179d1801452e01108a--pty.ap-singapore.cloudstudio.club"
     }
   },
   "config": {
-    "api": "https://59abc8cb47434a6687bc959ae0fc3b80--api.ap-singapore.cloudstudio.club",
-    "pty": "https://59abc8cb47434a6687bc959ae0fc3b80--pty.ap-singapore.cloudstudio.club",
+    "api": "https://35dd77b6133745179d1801452e01108a--api.ap-singapore.cloudstudio.club",
+    "pty": "https://35dd77b6133745179d1801452e01108a--pty.ap-singapore.cloudstudio.club",
     "region": "ap-shanghai",
-    "spaceKey": "59abc8cb47434a6687bc959ae0fc3b80"
+    "spaceKey": "35dd77b6133745179d1801452e01108a"
   }
 }
