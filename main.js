@@ -77,17 +77,46 @@ class FullscreenLoadingController {
         return 1 - Math.pow(1 - t, 3);
     }
     
-    // 设置进度
+    // 设置进度 - 使用平滑动画效果
     setProgress(value) {
         this.targetProgress = Math.min(Math.max(value, 0), 100);
         
+        // 使用平滑过渡动画
         if (this.progressBar) {
+            this.progressBar.style.transition = 'width 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
             this.progressBar.style.width = `${this.targetProgress}%`;
         }
         
         if (this.progressPercentage) {
-            this.progressPercentage.textContent = `${Math.round(this.targetProgress)}%`;
+            // 数字动画效果
+            this.animateNumber(this.progress, this.targetProgress, (current) => {
+                this.progressPercentage.textContent = `${Math.round(current)}%`;
+            });
         }
+        
+        this.progress = this.targetProgress;
+    }
+    
+    // 数字动画效果
+    animateNumber(start, end, callback) {
+        const duration = 300;
+        const startTime = performance.now();
+        
+        const animate = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            const easedProgress = this.easeOutCubic(progress);
+            const current = start + (end - start) * easedProgress;
+            
+            callback(current);
+            
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            }
+        };
+        
+        requestAnimationFrame(animate);
     }
     
     // 隐藏加载动画

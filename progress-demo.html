@@ -439,4 +439,90 @@
         }
         
         // 特效进度条动画
-        function animate
+        function animateEffectProgress() {
+            progressBars.glow.setProgress(85);
+            progressBars.striped.setProgress(70);
+        }
+        
+        // 重置特效进度条
+        function resetEffectProgress() {
+            progressBars.glow.reset();
+            progressBars.striped.reset();
+        }
+        
+        // 实时更新进度条
+        function updateRealtimeProgress(value) {
+            progressBars.realtime.setProgress(parseInt(value));
+            document.getElementById('slider-value').textContent = value + '%';
+        }
+        
+        // 更新动画时长
+        function updateAnimationDuration(duration) {
+            progressBars.realtime.updateOptions({
+                animationDuration: parseInt(duration)
+            });
+            document.getElementById('duration-value').textContent = duration + 'ms';
+        }
+        
+        // 更新统计信息
+        function updateStats(progress) {
+            animationStats.maxProgress = Math.max(animationStats.maxProgress, progress);
+            updateStatsDisplay();
+        }
+        
+        // 更新统计显示
+        function updateStatsDisplay() {
+            document.getElementById('total-animations').textContent = animationStats.totalAnimations;
+            document.getElementById('avg-duration').textContent = 
+                Math.round(animationStats.totalDuration / Math.max(animationStats.totalAnimations, 1)) + 'ms';
+            document.getElementById('max-progress').textContent = 
+                Math.round(animationStats.maxProgress) + '%';
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeProgressBars();
+            
+            // 演示自动动画
+            setTimeout(() => {
+                progressBars.basic.setProgress(30);
+            }, 1000);
+            
+            setTimeout(() => {
+                progressBars.colored.setProgress(50);
+            }, 2000);
+            
+            console.log('平滑动画进度条组件演示已加载完成！');
+        });
+        
+        // 键盘快捷键支持
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case '1':
+                        e.preventDefault();
+                        setBasicProgress(25);
+                        break;
+                    case '2':
+                        e.preventDefault();
+                        setBasicProgress(50);
+                        break;
+                    case '3':
+                        e.preventDefault();
+                        setBasicProgress(75);
+                        break;
+                    case '4':
+                        e.preventDefault();
+                        setBasicProgress(100);
+                        break;
+                    case '0':
+                        e.preventDefault();
+                        // 重置所有进度条
+                        Object.values(progressBars).forEach(bar => bar.reset());
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
