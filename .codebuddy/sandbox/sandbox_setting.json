@@ -1,0 +1,20 @@
+{
+  "path": "d:\\下载\\starssr",
+  "desc": "云云星羽网络科技工作室官方网站 - 全屏跨终端一致加载动画版本。实现了强制全屏显示、旋转星星矢量动画、精确进度百分比显示，禁用所有智能设备适配功能，确保在PC/手机/平板上显示完全一致。",
+  "id": "59abc8cb47434a6687bc959ae0fc3b80",
+  "data": {
+    "spaceKey": "59abc8cb47434a6687bc959ae0fc3b80",
+    "connections": {
+      "webIDE": "https://59abc8cb47434a6687bc959ae0fc3b80.ap-singapore.cloudstudio.club",
+      "preview": "",
+      "api": "https://59abc8cb47434a6687bc959ae0fc3b80--api.ap-singapore.cloudstudio.club",
+      "pty": "https://59abc8cb47434a6687bc959ae0fc3b80--pty.ap-singapore.cloudstudio.club"
+    }
+  },
+  "config": {
+    "api": "https://59abc8cb47434a6687bc959ae0fc3b80--api.ap-singapore.cloudstudio.club",
+    "pty": "https://59abc8cb47434a6687bc959ae0fc3b80--pty.ap-singapore.cloudstudio.club",
+    "region": "ap-shanghai",
+    "spaceKey": "59abc8cb47434a6687bc959ae0fc3b80"
+  }
+}

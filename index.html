@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 基础SEO信息 -->
+    <title>云云星羽网络科技工作室</title>
+    <meta name="description" content="三亚海棠区云云星羽网络科技工作室，专业提供网络技术服务、定制软件开发、人工智能解决方案，助力企业数字化转型升级。">
+    <meta name="keywords" content="云云星羽,网络科技,软件开发,人工智能,数字化转型,三亚科技公司">
+    <meta name="author" content="云云星羽网络科技工作室">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph 社交分享 -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="云云星羽网络科技工作室 - 专业网络技术服务与AI解决方案">
+    <meta property="og:description" content="专业提供网络技术服务、软件开发、人工智能解决方案，助力企业数字化转型。">
+    <meta property="og:image" content="https://q1.qlogo.cn/g?b=qq&nk=521001121&s=640">
+    <meta property="og:url" content="https://starssr.com/">
+
+    <!-- QQ分享小卡片支持 -->
+    <meta name="QQ:title" content="云云星羽网络科技工作室 - 专业网络技术服务">
+    <meta name="QQ:description" content="专业提供网络技术服务、软件开发、人工智能解决方案，助力企业数字化转型">
+    <meta name="QQ:image" content="https://q1.qlogo.cn/g?b=qq&nk=521001121&s=640">
+    <meta name="QQ:url" content="https://starssr.com/">
+
+    <!-- 图标和主题 -->
+    <link rel="icon" type="image/png" href="https://q1.qlogo.cn/g?b=qq&nk=521001121&s=100">
+    <meta name="theme-color" content="#667eea">
+
+    <!-- 样式表 -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        crossorigin="anonymous">
+
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "三亚海棠区云云星羽网络科技工作室",
+        "alternateName": "云云星羽",
+        "description": "专业提供网络技术服务、软件开发、人工智能解决方案",
+        "foundingDate": "2023-02-23",
+        "legalName": "三亚海棠区云云星羽网络科技工作室",
+        "taxID": "92460000MAC916KY43",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "海棠北路1号3幢522室",
+            "addressLocality": "海棠区",
+            "addressRegion": "三亚市",
+            "addressCountry": "中国",
+            "postalCode": "572013"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 18.2370,
+            "longitude": 109.5086
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "availableLanguage": "Chinese"
+        },
+        "sameAs": [
+            "https://github.com/starssr",
+            "https://weibo.com/starssr"
+        ],
+        "serviceArea": {
+            "@type": "Country",
+            "name": "中国"
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <!-- 全屏加载动画容器 -->
+    <div id="loading-overlay" class="loading-overlay-fullscreen">
+        <!-- 背景粒子效果 -->
+        <div class="particles" id="particles"></div>
+
+        <!-- 加载容器 -->
+        <div class="loading-container-fullscreen">
+            <div class="brand-name-fullscreen">云云星羽</div>
+            <div class="subtitle-fullscreen">网络科技工作室</div>
+
+            <!-- 星星SVG矢量动画 -->
+            <div class="star-animation-container">
+                <svg class="star-svg" viewBox="0 0 100 100" width="120" height="120">
+                    <defs>
+                        <linearGradient id="starGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#ffed4e;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ffc107;stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                            <feMerge> 
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <polygon points="50,5 61,35 95,35 68,57 79,91 50,70 21,91 32,57 5,35 39,35" 
+                             fill="url(#starGradient)" 
+                             filter="url(#glow)"
+                             class="rotating-star"/>
+                </svg>
+            </div>
+
+            <div class="loading-text-fullscreen">正在加载中...</div>
+
+            <!-- 精确进度显示 -->
+            <div class="progress-container-fullscreen">
+                <div class="progress-bar-fullscreen" id="progressBarFullscreen"></div>
+            </div>
+            <div class="progress-percentage" id="progressPercentage">0%</div>
+        </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-star logo-star" aria-hidden="true"></i>
+                    <span>云云星羽</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#services">服务</a></li>
+                    <li><a href="#about">关于我们</a></li>
+                    <li><a href="#contact">联系我们</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主内容 -->
+    <main>
+        <!-- Hero 区域 -->
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>创新科技，引领未来</h1>
+                    <p>三亚海棠区云云星羽网络科技工作室致力于提供前沿的网络技术服务、软件开发与人工智能解决方案，助力企业数字化转型。</p>
+                    <div class="hero-buttons">
+                        <a href="#services" class="btn">探索服务</a>
+                        <a href="#contact" class="btn btn-outline">联系我们</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 服务区域 -->
+        <section class="services" id="services">
+            <div class="container">
+                <div class="section-title">
+                    <h2>专业服务</h2>
+                    <p>我们提供全方位的网络科技解决方案，助力企业实现数字化转型。</p>
+                </div>
+                <div class="services-grid">
+                    <article class="service-card">
+                        <div class="service-icon" aria-hidden="true">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>软件开发</h3>
+                            <p>提供定制化软件开发服务，满足企业多样化需求，打造高效、稳定的业务系统。</p>
+                        </div>
+                    </article>
+                    <article class="service-card">
+                        <div class="service-icon" aria-hidden="true">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>人工智能</h3>
+                            <p>人工智能算法开发与应用系统集成，助力企业实现智能化升级。</p>
+                        </div>
+                    </article>
+                    <article class="service-card">
+                        <div class="service-icon" aria-hidden="true">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>网络技术服务</h3>
+                            <p>专业的网络架构设计、实施与维护服务，确保企业网络高效稳定运行。</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 关于我们 -->
+        <section class="about" id="about">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2>关于云云星羽</h2>
+                        <p>三亚海棠区云云星羽网络科技工作室成立于2023年2月23日，是一家专注于网络科技服务的创新型工作室。</p>
+                        <p>我们致力于为客户提供高质量的网络技术服务、软件开发、人工智能解决方案等，帮助企业实现数字化转型。</p>
+                        <p>我们的团队由经验丰富的技术专家组成，始终坚持以技术创新为核心，以客户需求为导向。</p>
+                    </div>
+                    <aside class="company-info" aria-labelledby="company-info-title">
+                        <h3 id="company-info-title">企业信息</h3>
+                        <div class="info-item">
+                            <i class="fas fa-building" aria-hidden="true"></i>
+                            <div><strong>名称：</strong>三亚海棠区云云星羽网络科技工作室</div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-user" aria-hidden="true"></i>
+                            <div><strong>经营者：</strong>云云星羽</div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-id-card" aria-hidden="true"></i>
+                            <div><strong>统一社会信用代码：</strong>92460000MAC916KY43</div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <div><strong>经营场所：</strong>海南省三亚市海棠区海棠北路1号3幢522室</div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                            <div><strong>注册日期：</strong>2023年02月23日</div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 底部联系区域 -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>云云星羽</h3>
+                    <p>致力于提供高质量的网络技术服务、软件开发与人工智能解决方案，助力企业数字化转型。</p>
+                    <div class="social-links">
+                        <a href="#" id="wechat-btn" title="微信联系" aria-label="微信联系"><i class="fab fa-weixin"></i></a>
+                        <a href="https://qm.qq.com/q/f3Cncqhupy" target="_blank" rel="noopener" title="QQ联系"
+                            aria-label="QQ联系"><i class="fab fa-qq"></i></a>
+                        <a href="https://weibo.com/starssr" target="_blank" rel="noopener" title="微博" aria-label="微博"><i
+                                class="fab fa-weibo"></i></a>
+                        <a href="https://github.com/starssr" target="_blank" rel="noopener" title="GitHub"
+                            aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>服务范围</h3>
+                    <ul>
+                        <li><i class="fas fa-check" aria-hidden="true"></i> 网络技术服务</li>
+                        <li><i class="fas fa-check" aria-hidden="true"></i> 软件开发</li>
+                        <li><i class="fas fa-check" aria-hidden="true"></i> 人工智能应用</li>
+                        <li><i class="fas fa-check" aria-hidden="true"></i> 5G通信技术</li>
+                        <li><i class="fas fa-check" aria-hidden="true"></i> 物联网技术服务</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 三亚海棠区云云星羽网络科技工作室 | 统一社会信用代码：92460000MAC916KY43</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 微信二维码弹窗 -->
+    <div id="wechat-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-desc"
+        aria-hidden="true">
+        <div class="modal-content">
+            <button class="close-btn" id="close-modal" aria-label="关闭弹窗" type="button">&times;</button>
+            <div class="modal-body">
+                <h4 id="modal-title">微信扫码联系我们</h4>
+                <img src="wdwx.webp" alt="云云星羽微信二维码" class="qrcode-img" loading="lazy">
+                <p id="modal-desc">扫描二维码添加微信好友<br>或直接搜索微信号：<strong>starssr-com</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到顶部按钮 -->
+    <button id="back-to-top" class="back-to-top" aria-label="回到顶部" title="回到顶部">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="main.js"></script>
+</body>
+
+</html>
