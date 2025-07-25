@@ -1,350 +1,228 @@
-// 简化的加载动画控制器
-class SimpleLoadingController {
+/**
+ * 云云星羽网络科技工作室 - 主应用脚本
+ * 功能：加载动画、导航、滚动控制、模态框
+ */
+
+// 工具函数
+const Utils = {
+    // 安全的DOM查询
+    $: (selector) => document.querySelector(selector),
+    $$: (selector) => document.querySelectorAll(selector),
+    
+    // 防抖函数
+    debounce: (func, wait) => {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    },
+    
+    // 节流函数
+    throttle: (func, limit) => {
+        let inThrottle;
+        return function() {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        };
+    }
+};
+
+// 加载动画控制器
+class LoadingController {
     constructor() {
-        this.overlay = document.getElementById('loading-overlay');
-        this.particles = document.getElementById('particles');
-        this.progressBarFill = document.querySelector('.progress-bar-fill');
-        this.progressPercentage = document.querySelector('.progress-percentage');
+        this.overlay = Utils.$('#loading-overlay');
+        this.particles = Utils.$('#particles');
+        this.progressBarFill = Utils.$('.progress-bar-fill');
+        this.progressPercentage = Utils.$('.progress-percentage');
+        this.progressContainer = Utils.$('.progress-bar-container');
         
         this.isLoading = true;
-        this.animationId = null;
+        this.isPaused = false;
         this.currentProgress = 0;
-        this.targetProgress = 0;
         
-        // 初始化组件
-        this.initParticles();
-        this.startLoading();
+        if (this.overlay) {
+            this.initParticles();
+            this.initProgressControls();
+            this.startLoading();
+        }
     }
     
-    // 初始化粒子效果
     initParticles() {
         if (!this.particles) return;
         
-        // 创建少量粒子，减少视觉干扰
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 50; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
             particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 8 + 's';
-            particle.style.animationDuration = (6 + Math.random() * 4) + 's';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 3 + 's';
+            particle.style.animationDuration = (3 + Math.random() * 2) + 's';
             this.particles.appendChild(particle);
         }
     }
     
-    // 开始加载动画
-    startLoading() {
-        // 启动进度条动画
-        this.animateProgress();
+    initProgressControls() {
+        if (!this.progressContainer) return;
         
-        // 2.5秒后自动隐藏加载动画
-        setTimeout(() => {
-            this.hideLoading();
-        }, 2500);
+        // 创建控制按钮容器
+        const controlsDiv = document.createElement('div');
+        controlsDiv.className = 'progress-controls';
+        
+        // 暂停/继续按钮
+        const pauseBtn = document.createElement('button');
+        pauseBtn.className = 'progress-control-btn';
+        pauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        pauseBtn.title = '暂停/继续';
+        pauseBtn.addEventListener('click', () => this.togglePause());
+        
+        controlsDiv.appendChild(pauseBtn);
+        this.progressContainer.appendChild(controlsDiv);
+        
+        this.pauseBtn = pauseBtn;
     }
     
-    // 进度条动画
-    animateProgress() {
-        const duration = 2000; // 2秒完成进度
-        const startTime = Date.now();
+    togglePause() {
+        this.isPaused = !this.isPaused;
+        
+        if (this.isPaused) {
+            this.progressContainer.classList.add('paused');
+            this.pauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+            this.pauseBtn.title = '继续';
+        } else {
+            this.progressContainer.classList.remove('paused');
+            this.pauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            this.pauseBtn.title = '暂停';
+        }
+    }
+    
+    startLoading() {
+        const duration = 2500;
+        let startTime = Date.now();
+        let pausedTime = 0;
         
         const updateProgress = () => {
             if (!this.isLoading) return;
             
-            const elapsed = Date.now() - startTime;
-            const progress = Math.min((elapsed / duration) * 100, 100);
-            
-            // 平滑更新进度
-            this.currentProgress += (progress - this.currentProgress) * 0.1;
-            
-            if (this.progressBarFill) {
-                this.progressBarFill.style.width = this.currentProgress + '%';
+            if (this.isPaused) {
+                pausedTime += 16; // 大约一帧的时间
+                requestAnimationFrame(updateProgress);
+                return;
             }
             
-            if (this.progressPercentage) {
-                this.progressPercentage.textContent = Math.round(this.currentProgress) + '%';
-            }
+            const elapsed = Date.now() - startTime - pausedTime;
+            this.currentProgress = Math.min((elapsed / duration) * 100, 100);
+            
+            this.updateProgressDisplay();
             
             if (this.currentProgress < 99.5) {
                 requestAnimationFrame(updateProgress);
             } else {
-                // 确保最终显示100%
-                if (this.progressBarFill) {
-                    this.progressBarFill.style.width = '100%';
-                }
-                if (this.progressPercentage) {
-                    this.progressPercentage.textContent = '100%';
-                }
+                this.completeLoading();
             }
         };
         
-        // 延迟500ms开始进度条动画，让其他动画先显示
-        setTimeout(() => {
-            requestAnimationFrame(updateProgress);
-        }, 500);
+        setTimeout(() => requestAnimationFrame(updateProgress), 500);
     }
     
-    // 隐藏加载动画
-    hideLoading() {
-        if (!this.isLoading || !this.overlay) return;
-        
+    updateProgressDisplay() {
+        if (this.progressBarFill) {
+            this.progressBarFill.style.width = this.currentProgress + '%';
+        }
+        if (this.progressPercentage) {
+            this.progressPercentage.textContent = Math.round(this.currentProgress) + '%';
+        }
+    }
+    
+    completeLoading() {
         this.isLoading = false;
         
-        // 添加淡出效果
-        this.overlay.classList.add('fade-out');
+        if (this.progressBarFill) {
+            this.progressBarFill.style.width = '100%';
+        }
+        if (this.progressPercentage) {
+            this.progressPercentage.textContent = '100%';
+        }
         
-        // 300ms后完全移除
         setTimeout(() => {
-            if (this.overlay && this.overlay.parentNode) {
-                this.overlay.parentNode.removeChild(this.overlay);
+            if (this.overlay) {
+                this.overlay.style.opacity = '0';
+                setTimeout(() => {
+                    this.overlay.remove();
+                }, 500);
             }
-            console.log('加载动画已完成');
-        }, 300);
+        }, 200);
     }
 }
 
-// 微信弹窗控制器 - 增强版
-class WechatModalController {
+// 导航控制器
+class NavigationController {
     constructor() {
-        this.modal = document.getElementById('wechat-modal');
-        this.wechatBtn = document.getElementById('wechat-btn');
-        this.closeBtn = document.getElementById('close-modal');
-        this.modalOverlay = document.getElementById('modal-overlay');
-        
-        this.isOpen = false;
-        this.focusableElements = [];
-        this.firstFocusableElement = null;
-        this.lastFocusableElement = null;
-        
-        this.initEventListeners();
-        this.initAccessibility();
+        this.header = Utils.$('header');
+        this.initNavigation();
+        this.initScrollEffect();
     }
     
-    initEventListeners() {
-        // 微信按钮多重事件监听
-        if (this.wechatBtn) {
-            // 点击事件
-            this.wechatBtn.addEventListener('click', (e) => {
+    initNavigation() {
+        const navLinks = Utils.$$('.nav-links a[href^="#"]');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
                 e.preventDefault();
-                e.stopPropagation();
-                console.log('微信按钮点击事件触发');
-                this.showModal();
-            });
-            
-            // 键盘事件
-            this.wechatBtn.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    console.log('微信按钮键盘事件触发');
-                    this.showModal();
+                const targetId = link.getAttribute('href');
+                const targetElement = Utils.$(targetId);
+                
+                if (targetElement) {
+                    const offsetTop = targetElement.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
                 }
             });
-            
-            // 移动端触摸事件
-            this.wechatBtn.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                console.log('微信按钮触摸开始');
-            });
-            
-            this.wechatBtn.addEventListener('touchend', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('微信按钮触摸结束，显示弹窗');
-                this.showModal();
-            });
-            
-            // 鼠标事件
-            this.wechatBtn.addEventListener('mousedown', (e) => {
-                e.preventDefault();
-                console.log('微信按钮鼠标按下');
-            });
-        }
-        
-        // 关闭按钮事件
-        if (this.closeBtn) {
-            this.closeBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                console.log('关闭按钮被点击');
-                this.hideModal();
-            });
-            
-            this.closeBtn.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    this.hideModal();
-                }
-            });
-        }
-        
-        // 背景遮罩点击关闭
-        if (this.modalOverlay) {
-            this.modalOverlay.addEventListener('click', (e) => {
-                e.preventDefault();
-                console.log('背景遮罩被点击');
-                this.hideModal();
-            });
-        }
-        
-        // 弹窗容器点击事件（防止冒泡）
-        if (this.modal) {
-            this.modal.addEventListener('click', (e) => {
-                if (e.target === this.modal) {
-                    console.log('弹窗背景被点击');
-                    this.hideModal();
-                }
-            });
-        }
-        
-        // 全局键盘事件
-        document.addEventListener('keydown', (e) => {
-            if (this.isOpen) {
-                if (e.key === 'Escape') {
-                    e.preventDefault();
-                    console.log('ESC键被按下，关闭弹窗');
-                    this.hideModal();
-                } else if (e.key === 'Tab') {
-                    this.handleTabKey(e);
-                }
-            }
         });
     }
     
-    initAccessibility() {
-        // 初始化可聚焦元素
-        this.updateFocusableElements();
-    }
-    
-    updateFocusableElements() {
-        if (this.modal) {
-            const focusableSelectors = [
-                'button:not([disabled])',
-                'input:not([disabled])',
-                'select:not([disabled])',
-                'textarea:not([disabled])',
-                'a[href]',
-                '[tabindex]:not([tabindex="-1"])'
-            ];
-            
-            this.focusableElements = this.modal.querySelectorAll(focusableSelectors.join(', '));
-            this.firstFocusableElement = this.focusableElements[0];
-            this.lastFocusableElement = this.focusableElements[this.focusableElements.length - 1];
-        }
-    }
-    
-    handleTabKey(e) {
-        if (this.focusableElements.length === 0) return;
+    initScrollEffect() {
+        if (!this.header) return;
         
-        if (e.shiftKey) {
-            // Shift + Tab
-            if (document.activeElement === this.firstFocusableElement) {
-                e.preventDefault();
-                this.lastFocusableElement?.focus();
+        const throttledScroll = Utils.throttle(() => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 导航栏滚动效果
+            if (scrollTop > 50) {
+                this.header.classList.add('scrolled');
+            } else {
+                this.header.classList.remove('scrolled');
             }
-        } else {
-            // Tab
-            if (document.activeElement === this.lastFocusableElement) {
-                e.preventDefault();
-                this.firstFocusableElement?.focus();
-            }
-        }
-    }
-    
-    showModal() {
-        if (this.modal && !this.isOpen) {
-            console.log('显示微信弹窗');
-            
-            // 更新按钮状态
-            if (this.wechatBtn) {
-                this.wechatBtn.setAttribute('aria-expanded', 'true');
-            }
-            
-            // 显示弹窗
-            this.modal.style.display = 'flex';
-            this.modal.classList.add('show');
-            this.modal.setAttribute('aria-hidden', 'false');
-            
-            // 禁用背景滚动
-            document.body.style.overflow = 'hidden';
-            
-            // 更新状态
-            this.isOpen = true;
-            
-            // 焦点管理
-            this.updateFocusableElements();
-            setTimeout(() => {
-                this.closeBtn?.focus();
-            }, 100);
-            
-            console.log('微信弹窗已显示');
-        }
-    }
-    
-    hideModal() {
-        if (this.modal && this.isOpen) {
-            console.log('隐藏微信弹窗');
-            
-            // 更新按钮状态
-            if (this.wechatBtn) {
-                this.wechatBtn.setAttribute('aria-expanded', 'false');
-            }
-            
-            // 隐藏弹窗
-            this.modal.classList.remove('show');
-            this.modal.setAttribute('aria-hidden', 'true');
-            
-            // 恢复背景滚动
-            document.body.style.overflow = 'auto';
-            
-            // 更新状态
-            this.isOpen = false;
-            
-            // 延迟隐藏
-            setTimeout(() => {
-                this.modal.style.display = 'none';
-            }, 300);
-            
-            // 返回焦点
-            setTimeout(() => {
-                this.wechatBtn?.focus();
-            }, 50);
-            
-            console.log('微信弹窗已隐藏');
-        }
-    }
-    
-    // 公共方法
-    toggle() {
-        if (this.isOpen) {
-            this.hideModal();
-        } else {
-            this.showModal();
-        }
-    }
-    
-    isModalOpen() {
-        return this.isOpen;
+        }, 16);
+        
+        window.addEventListener('scroll', throttledScroll, { passive: true });
     }
 }
-    
 
-// 回到顶部按钮控制器
-class BackToTopController {
+// 滚动控制器
+class ScrollController {
     constructor() {
-        this.backToTopBtn = document.getElementById('back-to-top');
-        this.initEventListeners();
-        this.initScrollListener();
-    }
-    
-    initEventListeners() {
-        if (!this.backToTopBtn) return;
+        this.backToTopBtn = Utils.$('#back-to-top');
         
-        this.backToTopBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            this.scrollToTop();
-        });
+        if (this.backToTopBtn) {
+            this.initScrollListener();
+            this.initBackToTop();
+        }
     }
     
     initScrollListener() {
-        window.addEventListener('scroll', () => {
+        const throttledScroll = Utils.throttle(() => {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             
             if (scrollTop > 300) {
@@ -352,153 +230,126 @@ class BackToTopController {
             } else {
                 this.backToTopBtn.classList.remove('show');
             }
-        });
+        }, 16);
+        
+        window.addEventListener('scroll', throttledScroll, { passive: true });
     }
     
-    scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
-}
-
-// 导航栏控制器 - 简化版，专注于滚动效果
-class NavigationController {
-    constructor() {
-        this.header = document.querySelector('header');
-        
-        this.initScrollEffect();
-    }
-    
-    initScrollEffect() {
-        if (!this.header) return;
-        
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (scrollTop > 50) {
-                this.header.classList.add('scrolled');
-            } else {
-                this.header.classList.remove('scrolled');
-            }
-        });
-    }
-}
-
-// 平滑滚动控制器 - 统一管理所有锚点链接的平滑滚动
-class SmoothScrollController {
-    constructor() {
-        this.header = document.querySelector('header');
-        this.initSmoothScroll();
-    }
-    
-    initSmoothScroll() {
-        // 获取所有锚点链接，包括导航栏和Hero区域的按钮
-        const anchorLinks = document.querySelectorAll('a[href^="#"]');
-        
-        anchorLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                const href = link.getAttribute('href');
-                
-                if (href && href.startsWith('#') && href.length > 1) {
-                    e.preventDefault();
-                    this.scrollToTarget(href.substring(1));
-                }
-            });
-        });
-    }
-    
-    scrollToTarget(targetId) {
-        const targetElement = document.getElementById(targetId);
-        
-        if (targetElement) {
-            // 计算导航栏高度，确保目标元素不被遮挡
-            const headerHeight = this.header ? this.header.offsetHeight : 0;
-            const targetPosition = targetElement.offsetTop - headerHeight - 20; // 额外20px间距
-            
-            // 使用原生平滑滚动
+    initBackToTop() {
+        this.backToTopBtn.addEventListener('click', () => {
             window.scrollTo({
-                top: Math.max(0, targetPosition), // 确保不会滚动到负值
+                top: 0,
                 behavior: 'smooth'
             });
-            
-            console.log(`平滑滚动到: ${targetId}`);
-        } else {
-            console.warn(`未找到目标元素: ${targetId}`);
+        });
+    }
+}
+
+// 模态框控制器
+class ModalController {
+    constructor() {
+        this.modal = Utils.$('#wechat-modal');
+        this.trigger = Utils.$('#wechat-btn');
+        this.closeBtn = Utils.$('#close-modal');
+        this.overlay = Utils.$('#modal-overlay');
+        
+        if (this.modal && this.trigger) {
+            this.initModal();
         }
     }
     
-    // 公共方法，供其他组件调用
-    scrollTo(targetId) {
-        this.scrollToTarget(targetId);
+    initModal() {
+        // 打开模态框
+        this.trigger.addEventListener('click', () => this.openModal());
+        
+        // 关闭模态框
+        if (this.closeBtn) {
+            this.closeBtn.addEventListener('click', () => this.closeModal());
+        }
+        
+        if (this.overlay) {
+            this.overlay.addEventListener('click', () => this.closeModal());
+        }
+        
+        // ESC键关闭
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.modal.classList.contains('show')) {
+                this.closeModal();
+            }
+        });
+    }
+    
+    openModal() {
+        this.modal.classList.add('show');
+        this.modal.setAttribute('aria-hidden', 'false');
+        this.trigger.setAttribute('aria-expanded', 'true');
+        
+        // 焦点管理
+        const firstFocusable = this.modal.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (firstFocusable) {
+            firstFocusable.focus();
+        }
+        
+        // 防止背景滚动
+        document.body.style.overflow = 'hidden';
+    }
+    
+    closeModal() {
+        this.modal.classList.remove('show');
+        this.modal.setAttribute('aria-hidden', 'true');
+        this.trigger.setAttribute('aria-expanded', 'false');
+        
+        // 恢复焦点
+        this.trigger.focus();
+        
+        // 恢复背景滚动
+        document.body.style.overflow = '';
     }
 }
 
-// 主应用控制器
+// 主应用类
 class MainApp {
     constructor() {
         this.loadingController = null;
-        this.wechatModalController = null;
-        this.backToTopController = null;
         this.navigationController = null;
-        this.smoothScrollController = null;
+        this.scrollController = null;
+        this.modalController = null;
         
         this.init();
     }
     
     init() {
-        // 初始化加载动画
-        this.loadingController = new SimpleLoadingController();
-        
-        // 页面加载完成后初始化其他组件
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => {
-                this.initComponents();
-            });
-        } else {
-            this.initComponents();
-        }
-        
-        // 确保所有资源加载完成
-        window.addEventListener('load', () => {
-            console.log('页面所有资源加载完成');
-        });
-    }
-    
-    initComponents() {
         try {
-            // 初始化平滑滚动控制器（优先初始化，供其他组件使用）
-            this.smoothScrollController = new SmoothScrollController();
-            
-            // 初始化微信弹窗
-            this.wechatModalController = new WechatModalController();
-            
-            // 初始化回到顶部按钮
-            this.backToTopController = new BackToTopController();
-            
-            // 初始化导航栏（移除重复的平滑滚动功能）
+            // 按依赖顺序初始化控制器
+            this.loadingController = new LoadingController();
             this.navigationController = new NavigationController();
+            this.scrollController = new ScrollController();
+            this.modalController = new ModalController();
             
-            console.log('所有组件初始化完成');
+            console.log('云云星羽网络科技工作室 - 应用初始化完成');
         } catch (error) {
-            console.error('组件初始化失败:', error);
+            console.error('应用初始化失败:', error);
         }
     }
 }
 
-// 启动应用
+// 全局错误处理
+window.addEventListener('error', (event) => {
+    console.error('全局错误:', event.error);
+});
+
+window.addEventListener('unhandledrejection', (event) => {
+    console.error('未处理的Promise拒绝:', event.reason);
+});
+
+// 应用启动
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM加载完成，启动应用...');
     new MainApp();
 });
 
-// 防止页面加载错误
-window.addEventListener('error', (e) => {
-    console.error('页面加载错误:', e.error);
-});
-
-// 防止未处理的Promise错误
-window.addEventListener('unhandledrejection', (e) => {
-    console.error('未处理的Promise错误:', e.reason);
-});
+// 如果DOM已经加载完成
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => new MainApp());
+} else {
+    new MainApp();
+}
