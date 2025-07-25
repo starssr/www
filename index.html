@@ -6,28 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- 基础SEO信息 -->
-    <title>云云星羽网络科技工作室</title>
-    <meta name="description" content="三亚海棠区云云星羽网络科技工作室，专业提供网络技术服务、定制软件开发、人工智能解决方案，助力企业数字化转型升级。">
-    <meta name="keywords" content="云云星羽,网络科技,软件开发,人工智能,数字化转型,三亚科技公司">
+    <title>云云星羽网络科技工作室 - 创新科技，引领未来</title>
+    <meta name="description" content="三亚海棠区云云星羽网络科技工作室，专业提供网络技术服务、定制软件开发、人工智能解决方案，助力企业数字化转型升级。采用简约科技风设计，展现专业技术实力。">
+    <meta name="keywords" content="云云星羽,网络科技,软件开发,人工智能,数字化转型,三亚科技公司,简约科技风,官网设计">
     <meta name="author" content="云云星羽网络科技工作室">
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph 社交分享 -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="云云星羽网络科技工作室 - 专业网络技术服务与AI解决方案">
-    <meta property="og:description" content="专业提供网络技术服务、软件开发、人工智能解决方案，助力企业数字化转型。">
+    <meta property="og:title" content="云云星羽网络科技工作室 - 创新科技，引领未来">
+    <meta property="og:description" content="专业提供网络技术服务、软件开发、人工智能解决方案，助力企业数字化转型。简约科技风设计，展现专业实力。">
     <meta property="og:image" content="https://q1.qlogo.cn/g?b=qq&nk=521001121&s=640">
     <meta property="og:url" content="https://starssr.com/">
 
     <!-- QQ分享小卡片支持 -->
-    <meta name="QQ:title" content="云云星羽网络科技工作室 - 专业网络技术服务">
+    <meta name="QQ:title" content="云云星羽网络科技工作室 - 创新科技，引领未来">
     <meta name="QQ:description" content="专业提供网络技术服务、软件开发、人工智能解决方案，助力企业数字化转型">
     <meta name="QQ:image" content="https://q1.qlogo.cn/g?b=qq&nk=521001121&s=640">
     <meta name="QQ:url" content="https://starssr.com/">
 
     <!-- 图标和主题 -->
     <link rel="icon" type="image/png" href="https://q1.qlogo.cn/g?b=qq&nk=521001121&s=100">
-    <meta name="theme-color" content="#667eea">
+    <meta name="theme-color" content="#00D4FF">
 
     <!-- 样式表 -->
     <link rel="stylesheet" href="style.css">
@@ -91,9 +91,9 @@
                 <svg class="star-svg" viewBox="0 0 100 100" width="120" height="120">
                     <defs>
                         <linearGradient id="starGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
-                            <stop offset="50%" style="stop-color:#ffed4e;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#ffc107;stop-opacity:1" />
+                            <stop offset="0%" style="stop-color:#00D4FF;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#00FF88;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0EA5E9;stop-opacity:1" />
                         </linearGradient>
                         <filter id="glow">
                             <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
@@ -110,7 +110,7 @@
                     <!-- 整合的进度条环形动画 -->
                     <circle cx="50" cy="50" r="45" 
                             fill="none" 
-                            stroke="rgba(255, 215, 0, 0.3)" 
+                            stroke="rgba(0, 212, 255, 0.3)" 
                             stroke-width="2"/>
                     <circle cx="50" cy="50" r="45" 
                             fill="none" 
@@ -149,24 +149,146 @@
                     <li><a href="#about">关于我们</a></li>
                     <li><a href="#contact">联系我们</a></li>
                 </ul>
+                <!-- 移动端菜单按钮 -->
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="打开菜单">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </nav>
         </div>
     </header>
 
     <!-- 主内容 -->
     <main>
-        <!-- Hero 区域 -->
+        <!-- Hero 区域 - 全新科技风设计 -->
         <section class="hero" id="home">
+            <!-- 背景粒子画布 -->
+            <canvas id="hero-particles" class="hero-particles"></canvas>
+            
+            <!-- 背景网格 -->
+            <div class="hero-grid"></div>
+
             <div class="container">
-                <div class="hero-content">
-                    <h1>创新科技，引领未来</h1>
-                    <p>三亚海棠区云云星羽网络科技工作室致力于提供前沿的网络技术服务、软件开发与人工智能解决方案，助力企业数字化转型。</p>
-                    <div class="hero-buttons">
-                        <a href="#services" class="btn">探索服务</a>
-                        <a href="#contact" class="btn btn-outline">联系我们</a>
+                <div class="hero-content-wrapper">
+                    
+                    <!-- 左侧内容区域 -->
+                    <div class="hero-text-section">
+                        <!-- 主标题 -->
+                        <div class="hero-title-group">
+                            <h1 class="hero-main-title">
+                                <span class="title-line-1">创新科技</span>
+                                <span class="title-line-2">引领未来</span>
+                            </h1>
+                            
+                            <!-- 副标题 -->
+                            <p class="hero-subtitle">
+                                专业提供前沿的网络技术服务、软件开发与人工智能解决方案，
+                                <span class="subtitle-highlight">助力企业数字化转型升级</span>
+                            </p>
+                        </div>
+
+                        <!-- 特色标签 -->
+                        <div class="hero-tags">
+                            <div class="hero-tag">
+                                <i class="fas fa-microchip"></i>
+                                <span>AI驱动</span>
+                            </div>
+                            <div class="hero-tag">
+                                <i class="fas fa-cloud"></i>
+                                <span>云原生</span>
+                            </div>
+                            <div class="hero-tag">
+                                <i class="fas fa-bolt"></i>
+                                <span>5G技术</span>
+                            </div>
+                            <div class="hero-tag">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>物联网</span>
+                            </div>
+                        </div>
+
+                        <!-- CTA按钮组 -->
+                        <div class="hero-buttons">
+                            <a href="#services" class="btn btn-primary">
+                                <span>探索服务</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <a href="#contact" class="btn btn-outline">
+                                <i class="fas fa-play"></i>
+                                <span>观看演示</span>
+                            </a>
+                        </div>
+
+                        <!-- 统计数据 -->
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">500+</div>
+                                <div class="stat-label">成功项目</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">98%</div>
+                                <div class="stat-label">客户满意度</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">24/7</div>
+                                <div class="stat-label">技术支持</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右侧3D科技图形区域 -->
+                    <div class="hero-visual-section">
+                        <div class="tech-visual-container">
+                            
+                            <!-- 旋转的外环 -->
+                            <div class="tech-outer-ring">
+                                <div class="ring-dot ring-dot-1"></div>
+                                <div class="ring-dot ring-dot-2"></div>
+                                <div class="ring-dot ring-dot-3"></div>
+                                <div class="ring-dot ring-dot-4"></div>
+                            </div>
+
+                            <!-- 中间的几何形状 -->
+                            <div class="tech-middle-shapes">
+                                <div class="tech-shape tech-shape-1"></div>
+                                <div class="tech-shape tech-shape-2"></div>
+                                
+                                <!-- 中心发光核心 -->
+                                <div class="tech-core">
+                                    <div class="core-inner"></div>
+                                    <div class="core-glow"></div>
+                                </div>
+                            </div>
+
+                            <!-- 浮动的科技元素 -->
+                            <div class="floating-elements">
+                                <!-- 这些元素将通过JavaScript动态生成 -->
+                            </div>
+
+                            <!-- 动态连接线 -->
+                            <div class="tech-lines">
+                                <div class="tech-line" style="--delay: 0s; --position: 20%;"></div>
+                                <div class="tech-line" style="--delay: 0.3s; --position: 32%;"></div>
+                                <div class="tech-line" style="--delay: 0.6s; --position: 44%;"></div>
+                                <div class="tech-line" style="--delay: 0.9s; --position: 56%;"></div>
+                                <div class="tech-line" style="--delay: 1.2s; --position: 68%;"></div>
+                                <div class="tech-line" style="--delay: 1.5s; --position: 80%;"></div>
+                            </div>
+
+                            <!-- 背景光晕效果 -->
+                            <div class="tech-glow tech-glow-1"></div>
+                            <div class="tech-glow tech-glow-2"></div>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- 底部渐变遮罩 -->
+            <div class="hero-bottom-mask"></div>
+            
+            <!-- 鼠标跟随光效 -->
+            <div id="mouse-glow" class="mouse-glow"></div>
         </section>
 
         <!-- 服务区域 -->
@@ -184,6 +306,11 @@
                         <div class="service-content">
                             <h3>软件开发</h3>
                             <p>提供定制化软件开发服务，满足企业多样化需求，打造高效、稳定的业务系统。</p>
+                            <div class="service-features">
+                                <span class="feature-tag">Web应用</span>
+                                <span class="feature-tag">移动端</span>
+                                <span class="feature-tag">桌面软件</span>
+                            </div>
                         </div>
                     </article>
                     <article class="service-card">
@@ -193,6 +320,11 @@
                         <div class="service-content">
                             <h3>人工智能</h3>
                             <p>人工智能算法开发与应用系统集成，助力企业实现智能化升级。</p>
+                            <div class="service-features">
+                                <span class="feature-tag">机器学习</span>
+                                <span class="feature-tag">深度学习</span>
+                                <span class="feature-tag">自然语言处理</span>
+                            </div>
                         </div>
                     </article>
                     <article class="service-card">
@@ -202,6 +334,11 @@
                         <div class="service-content">
                             <h3>网络技术服务</h3>
                             <p>专业的网络架构设计、实施与维护服务，确保企业网络高效稳定运行。</p>
+                            <div class="service-features">
+                                <span class="feature-tag">云计算</span>
+                                <span class="feature-tag">网络安全</span>
+                                <span class="feature-tag">系统运维</span>
+                            </div>
                         </div>
                     </article>
                 </div>
@@ -217,6 +354,31 @@
                         <p>三亚海棠区云云星羽网络科技工作室成立于2023年2月23日，是一家专注于网络科技服务的创新型工作室。</p>
                         <p>我们致力于为客户提供高质量的网络技术服务、软件开发、人工智能解决方案等，帮助企业实现数字化转型。</p>
                         <p>我们的团队由经验丰富的技术专家组成，始终坚持以技术创新为核心，以客户需求为导向。</p>
+                        
+                        <!-- 核心优势 -->
+                        <div class="about-advantages">
+                            <div class="advantage-item">
+                                <i class="fas fa-rocket"></i>
+                                <div>
+                                    <h4>技术创新</h4>
+                                    <p>紧跟前沿技术趋势，持续创新</p>
+                                </div>
+                            </div>
+                            <div class="advantage-item">
+                                <i class="fas fa-users"></i>
+                                <div>
+                                    <h4>专业团队</h4>
+                                    <p>经验丰富的技术专家团队</p>
+                                </div>
+                            </div>
+                            <div class="advantage-item">
+                                <i class="fas fa-handshake"></i>
+                                <div>
+                                    <h4>客户至上</h4>
+                                    <p>以客户需求为导向的服务理念</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <aside class="company-info" aria-labelledby="company-info-title">
                         <h3 id="company-info-title">企业信息</h3>

@@ -1,0 +1,34 @@
+{
+  "name": "starssr-tech-website",
+  "version": "1.0.0",
+  "description": "云云星羽网络科技工作室",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python -m http.server 8080",
+    "preview": "python -m http.server 3000",
+    "build": "node build.js",
+    "deploy": "node deploy.js",
+    "serve": "npx serve . -p 8080",
+    "start": "npm run serve"
+  },
+  "keywords": [
+    "云云星羽",
+    "网络科技",
+    "简约科技风",
+    "官网",
+    "静态网站"
+  ],
+  "author": "云云星羽网络科技工作室",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/starssr/starssr-website.git"
+  },
+  "homepage": "https://starssr.com",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
