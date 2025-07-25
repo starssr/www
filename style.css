@@ -426,7 +426,7 @@ header.scrolled {
     border-radius: 50px;
     font-weight: 600;
     font-size: 1.1rem;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
     position: relative;
     overflow: hidden;
@@ -453,6 +453,17 @@ header.scrolled {
     transform: translateY(-3px);
     box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
     background: linear-gradient(135deg, #5a6fd8 0%, #6a5b96 100%);
+    color: #ffd700;
+}
+
+.btn:active {
+    transform: translateY(-1px);
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn:focus {
+    outline: 2px solid rgba(255, 215, 0, 0.5);
+    outline-offset: 2px;
 }
 
 .btn-outline {
@@ -468,9 +479,20 @@ header.scrolled {
 
 .btn-outline:hover {
     background: rgba(255, 255, 255, 0.1);
-    border-color: white;
-    color: white;
+    border-color: #ffd700;
+    color: #ffd700;
     box-shadow: 0 15px 35px rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+}
+
+.btn-outline:active {
+    transform: translateY(-1px);
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-outline:focus {
+    outline: 2px solid rgba(255, 215, 0, 0.5);
+    outline-offset: 2px;
 }
 
 /* 服务区域 */

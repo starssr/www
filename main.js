@@ -315,14 +315,12 @@ class BackToTopController {
     }
 }
 
-// 导航栏控制器
+// 导航栏控制器 - 简化版，专注于滚动效果
 class NavigationController {
     constructor() {
         this.header = document.querySelector('header');
-        this.navLinks = document.querySelectorAll('.nav-links a');
         
         this.initScrollEffect();
-        this.initSmoothScroll();
     }
     
     initScrollEffect() {
@@ -338,29 +336,54 @@ class NavigationController {
             }
         });
     }
+}
+
+// 平滑滚动控制器 - 统一管理所有锚点链接的平滑滚动
+class SmoothScrollController {
+    constructor() {
+        this.header = document.querySelector('header');
+        this.initSmoothScroll();
+    }
     
     initSmoothScroll() {
-        this.navLinks.forEach(link => {
+        // 获取所有锚点链接，包括导航栏和Hero区域的按钮
+        const anchorLinks = document.querySelectorAll('a[href^="#"]');
+        
+        anchorLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 const href = link.getAttribute('href');
                 
-                if (href.startsWith('#')) {
+                if (href && href.startsWith('#') && href.length > 1) {
                     e.preventDefault();
-                    const targetId = href.substring(1);
-                    const targetElement = document.getElementById(targetId);
-                    
-                    if (targetElement) {
-                        const headerHeight = this.header ? this.header.offsetHeight : 0;
-                        const targetPosition = targetElement.offsetTop - headerHeight;
-                        
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
+                    this.scrollToTarget(href.substring(1));
                 }
             });
         });
+    }
+    
+    scrollToTarget(targetId) {
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+            // 计算导航栏高度，确保目标元素不被遮挡
+            const headerHeight = this.header ? this.header.offsetHeight : 0;
+            const targetPosition = targetElement.offsetTop - headerHeight - 20; // 额外20px间距
+            
+            // 使用原生平滑滚动
+            window.scrollTo({
+                top: Math.max(0, targetPosition), // 确保不会滚动到负值
+                behavior: 'smooth'
+            });
+            
+            console.log(`平滑滚动到: ${targetId}`);
+        } else {
+            console.warn(`未找到目标元素: ${targetId}`);
+        }
+    }
+    
+    // 公共方法，供其他组件调用
+    scrollTo(targetId) {
+        this.scrollToTarget(targetId);
     }
 }
 
@@ -371,6 +394,7 @@ class MainApp {
         this.wechatModalController = null;
         this.backToTopController = null;
         this.navigationController = null;
+        this.smoothScrollController = null;
         
         this.init();
     }
@@ -396,13 +420,16 @@ class MainApp {
     
     initComponents() {
         try {
+            // 初始化平滑滚动控制器（优先初始化，供其他组件使用）
+            this.smoothScrollController = new SmoothScrollController();
+            
             // 初始化微信弹窗
             this.wechatModalController = new WechatModalController();
             
             // 初始化回到顶部按钮
             this.backToTopController = new BackToTopController();
             
-            // 初始化导航栏
+            // 初始化导航栏（移除重复的平滑滚动功能）
             this.navigationController = new NavigationController();
             
             console.log('所有组件初始化完成');
