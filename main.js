@@ -3,9 +3,13 @@ class SimpleLoadingController {
     constructor() {
         this.overlay = document.getElementById('loading-overlay');
         this.particles = document.getElementById('particles');
+        this.progressBarFill = document.querySelector('.progress-bar-fill');
+        this.progressPercentage = document.querySelector('.progress-percentage');
         
         this.isLoading = true;
         this.animationId = null;
+        this.currentProgress = 0;
+        this.targetProgress = 0;
         
         // 初始化组件
         this.initParticles();
@@ -29,10 +33,54 @@ class SimpleLoadingController {
     
     // 开始加载动画
     startLoading() {
-        // 1秒后自动隐藏加载动画
+        // 启动进度条动画
+        this.animateProgress();
+        
+        // 2.5秒后自动隐藏加载动画
         setTimeout(() => {
             this.hideLoading();
-        }, 1000);
+        }, 2500);
+    }
+    
+    // 进度条动画
+    animateProgress() {
+        const duration = 2000; // 2秒完成进度
+        const startTime = Date.now();
+        
+        const updateProgress = () => {
+            if (!this.isLoading) return;
+            
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min((elapsed / duration) * 100, 100);
+            
+            // 平滑更新进度
+            this.currentProgress += (progress - this.currentProgress) * 0.1;
+            
+            if (this.progressBarFill) {
+                this.progressBarFill.style.width = this.currentProgress + '%';
+            }
+            
+            if (this.progressPercentage) {
+                this.progressPercentage.textContent = Math.round(this.currentProgress) + '%';
+            }
+            
+            if (this.currentProgress < 99.5) {
+                requestAnimationFrame(updateProgress);
+            } else {
+                // 确保最终显示100%
+                if (this.progressBarFill) {
+                    this.progressBarFill.style.width = '100%';
+                }
+                if (this.progressPercentage) {
+                    this.progressPercentage.textContent = '100%';
+                }
+            }
+        };
+        
+        // 延迟500ms开始进度条动画，让其他动画先显示
+        setTimeout(() => {
+            requestAnimationFrame(updateProgress);
+        }, 500);
     }
     
     // 隐藏加载动画
