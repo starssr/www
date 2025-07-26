@@ -44,10 +44,8 @@ class LoadingController {
         this.particles = Utils.$('#particles');
         this.progressBarFill = Utils.$('.progress-bar-fill');
         this.progressPercentage = Utils.$('.progress-percentage');
-        this.progressContainer = Utils.$('.progress-bar-container');
         
         this.isLoading = true;
-        this.isPaused = false;
         this.currentProgress = 0;
         
         if (this.overlay) {
@@ -667,7 +665,7 @@ class MainApp {
             this.controllers.interaction = new InteractionController();
             this.controllers.performance = new PerformanceController();
             
-            console.log('云云星羽网络科技工作室');
+            console.log('云云星羽网络科技');
         } catch (error) {
             console.error('应用初始化失败:', error);
         }
