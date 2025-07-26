@@ -76,7 +76,7 @@ class LoadingController {
     }
     
     startLoading() {
-        const duration = 2500;
+        const duration = 500;
         let startTime = Date.now();
         
         const updateProgress = () => {

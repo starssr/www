@@ -167,7 +167,7 @@ body {
 }
 
 .progress-circle {
-    animation: progressFill 2.5s ease-out forwards;
+    animation: progressFill 0.5s ease-out forwards;
     transform: rotate(-90deg);
     transform-origin: center;
 }
@@ -236,7 +236,7 @@ body {
         transparent 100%
     );
     border-radius: 6px;
-    animation: shimmer 2.5s ease-in-out infinite;
+    animation: shimmer 0.5s ease-in-out infinite;
 }
 
 .progress-percentage {
