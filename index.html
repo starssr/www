@@ -96,35 +96,24 @@
                             <stop offset="100%" style="stop-color:#0EA5E9;stop-opacity:1" />
                         </linearGradient>
                         <filter id="glow">
-                            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                            <feMerge> 
-                                <feMergeNode in="coloredBlur"/>
-                                <feMergeNode in="SourceGraphic"/>
+                            <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+                            <feMerge>
+                                <feMergeNode in="coloredBlur" />
+                                <feMergeNode in="SourceGraphic" />
                             </feMerge>
                         </filter>
                     </defs>
-                    <polygon points="50,5 61,35 95,35 68,57 79,91 50,70 21,91 32,57 5,35 39,35" 
-                             fill="url(#starGradient)" 
-                             filter="url(#glow)"
-                             class="rotating-star"/>
+                    <polygon points="50,5 61,35 95,35 68,57 79,91 50,70 21,91 32,57 5,35 39,35"
+                        fill="url(#starGradient)" filter="url(#glow)" class="rotating-star" />
                     <!-- 整合的进度条环形动画 -->
-                    <circle cx="50" cy="50" r="45" 
-                            fill="none" 
-                            stroke="rgba(0, 212, 255, 0.3)" 
-                            stroke-width="2"/>
-                    <circle cx="50" cy="50" r="45" 
-                            fill="none" 
-                            stroke="url(#starGradient)" 
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-dasharray="283"
-                            stroke-dashoffset="283"
-                            class="progress-circle"/>
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(0, 212, 255, 0.3)" stroke-width="2" />
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="url(#starGradient)" stroke-width="2"
+                        stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="283" class="progress-circle" />
                 </svg>
             </div>
 
             <div class="loading-text-fullscreen">正在加载中...</div>
-            
+
             <!-- 水平进度条容器 -->
             <div class="progress-bar-container">
                 <div class="progress-bar">
@@ -165,22 +154,22 @@
         <section class="hero" id="home">
             <!-- 背景粒子画布 -->
             <canvas id="hero-particles" class="hero-particles"></canvas>
-            
+
             <!-- 背景网格 -->
             <div class="hero-grid"></div>
 
             <div class="container">
                 <div class="hero-content-wrapper">
-                    
+
                     <!-- 左侧内容区域 -->
                     <div class="hero-text-section">
                         <!-- 主标题 -->
                         <div class="hero-title-group">
                             <h1 class="hero-main-title">
-                    <span class="title-line-1">创新科技</span>
-                    <span class="title-line-2">引领未来</span>
+                                <span class="title-line-1">创新科技</span>
+                                <span class="title-line-2">引领未来</span>
                             </h1>
-                            
+
                             <!-- 副标题 -->
                             <p class="hero-subtitle">
                                 专业提供前沿的网络技术服务、软件开发与人工智能解决方案，
@@ -240,7 +229,7 @@
                     <!-- 右侧3D科技图形区域 -->
                     <div class="hero-visual-section">
                         <div class="tech-visual-container">
-                            
+
                             <!-- 旋转的外环 -->
                             <div class="tech-outer-ring">
                                 <div class="ring-dot ring-dot-1"></div>
@@ -253,7 +242,7 @@
                             <div class="tech-middle-shapes">
                                 <div class="tech-shape tech-shape-1"></div>
                                 <div class="tech-shape tech-shape-2"></div>
-                                
+
                                 <!-- 中心发光核心 -->
                                 <div class="tech-core">
                                     <div class="core-inner"></div>
@@ -286,7 +275,7 @@
 
             <!-- 底部渐变遮罩 -->
             <div class="hero-bottom-mask"></div>
-            
+
             <!-- 鼠标跟随光效 -->
             <div id="mouse-glow" class="mouse-glow"></div>
         </section>
@@ -350,11 +339,11 @@
             <div class="container">
                 <div class="about-content">
                     <div class="about-text">
-                        <h2>关于云云星羽</h2>
+                        <h2>关于我们</h2>
                         <p>三亚海棠区云云星羽网络科技工作室成立于2023年2月23日，是一家专注于网络科技服务的创新型工作室。</p>
                         <p>我们致力于为客户提供高质量的网络技术服务、软件开发、人工智能解决方案等，帮助企业实现数字化转型。</p>
                         <p>我们的团队由经验丰富的技术专家组成，始终坚持以技术创新为核心，以客户需求为导向。</p>
-                        
+
                         <!-- 核心优势 -->
                         <div class="about-advantages">
                             <div class="advantage-item">
@@ -416,14 +405,9 @@
                     <h3>云云星羽</h3>
                     <p>致力于提供高质量的网络技术服务、软件开发与人工智能解决方案，助力企业数字化转型。</p>
                     <div class="social-links">
-                        <button type="button" 
-                                id="wechat-btn" 
-                                class="social-btn wechat-trigger" 
-                                title="微信联系" 
-                                aria-label="点击查看微信二维码"
-                                aria-describedby="wechat-modal"
-                                aria-expanded="false"
-                                data-modal-target="wechat-modal">
+                        <button type="button" id="wechat-btn" class="social-btn wechat-trigger" title="微信联系"
+                            aria-label="点击查看微信二维码" aria-describedby="wechat-modal" aria-expanded="false"
+                            data-modal-target="wechat-modal">
                             <i class="fab fa-weixin" aria-hidden="true"></i>
                         </button>
                         <a href="https://qm.qq.com/q/f3Cncqhupy" target="_blank" rel="noopener" title="QQ联系"
@@ -452,36 +436,21 @@
     </footer>
 
     <!-- 微信二维码弹窗 -->
-    <div id="wechat-modal" 
-         class="modal" 
-         role="dialog" 
-         aria-labelledby="modal-title" 
-         aria-describedby="modal-desc"
-         aria-hidden="true"
-         aria-modal="true"
-         tabindex="-1"
-         data-modal="wechat">
+    <div id="wechat-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-desc"
+        aria-hidden="true" aria-modal="true" tabindex="-1" data-modal="wechat">
         <div class="modal-overlay" id="modal-overlay" aria-hidden="true"></div>
         <div class="modal-content" role="document">
             <div class="modal-header">
                 <h4 id="modal-title" class="modal-title">微信扫码联系我们</h4>
-                <button class="close-btn" 
-                        id="close-modal" 
-                        type="button"
-                        aria-label="关闭微信二维码弹窗" 
-                        title="关闭弹窗"
-                        data-dismiss="modal">
+                <button class="close-btn" id="close-modal" type="button" aria-label="关闭微信二维码弹窗" title="关闭弹窗"
+                    data-dismiss="modal">
                     <i class="fas fa-times" aria-hidden="true"></i>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="qrcode-container">
-                    <img src="wdwx.webp" 
-                         alt="云云星羽微信二维码，扫描添加好友" 
-                         class="qrcode-img" 
-                         loading="lazy"
-                         width="200"
-                         height="200">
+                    <img src="wdwx.webp" alt="云云星羽微信二维码，扫描添加好友" class="qrcode-img" loading="lazy" width="200"
+                        height="200">
                 </div>
                 <div class="modal-text">
                     <p id="modal-desc" class="modal-description">
