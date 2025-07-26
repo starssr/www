@@ -1,20 +1,20 @@
 {
-  "path": "d:\\下载\\starssr\\dist",
-  "desc": "云云星羽网络科技工作室官网 - 简约科技风设计，包含动态粒子背景、3D科技图形、响应式布局等现代化功能",
-  "id": "35dd77b6133745179d1801452e01108a",
+  "path": "d:\\starssr",
+  "desc": "这是云云星羽网络科技工作室的官方网站，采用简约科技风设计，具有响应式布局、粒子动画效果、移动端导航菜单、模态框交互等功能。",
+  "id": "75bd313096f943f19dbd3edc05a25864",
   "data": {
-    "spaceKey": "35dd77b6133745179d1801452e01108a",
+    "spaceKey": "75bd313096f943f19dbd3edc05a25864",
     "connections": {
-      "webIDE": "https://35dd77b6133745179d1801452e01108a.ap-singapore.cloudstudio.club",
-      "preview": "https://35dd77b6133745179d1801452e01108a--{port}.ap-singapore.cloudstudio.club",
-      "api": "https://35dd77b6133745179d1801452e01108a--api.ap-singapore.cloudstudio.club",
-      "pty": "https://35dd77b6133745179d1801452e01108a--pty.ap-singapore.cloudstudio.club"
+      "webIDE": "https://75bd313096f943f19dbd3edc05a25864.ap-singapore.cloudstudio.club",
+      "preview": "https://75bd313096f943f19dbd3edc05a25864--{port}.ap-singapore.cloudstudio.club",
+      "api": "https://75bd313096f943f19dbd3edc05a25864--api.ap-singapore.cloudstudio.club",
+      "pty": "https://75bd313096f943f19dbd3edc05a25864--pty.ap-singapore.cloudstudio.club"
     }
   },
   "config": {
-    "api": "https://35dd77b6133745179d1801452e01108a--api.ap-singapore.cloudstudio.club",
-    "pty": "https://35dd77b6133745179d1801452e01108a--pty.ap-singapore.cloudstudio.club",
+    "api": "https://75bd313096f943f19dbd3edc05a25864--api.ap-singapore.cloudstudio.club",
+    "pty": "https://75bd313096f943f19dbd3edc05a25864--pty.ap-singapore.cloudstudio.club",
     "region": "ap-shanghai",
-    "spaceKey": "35dd77b6133745179d1801452e01108a"
+    "spaceKey": "75bd313096f943f19dbd3edc05a25864"
   }
 }

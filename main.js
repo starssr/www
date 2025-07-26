@@ -355,10 +355,56 @@ class NavigationController {
     initMobileMenu() {
         if (!this.mobileMenuBtn || !this.navLinks) return;
         
-        this.mobileMenuBtn.addEventListener('click', () => {
-            this.navLinks.classList.toggle('active');
-            this.mobileMenuBtn.classList.toggle('active');
+        this.mobileMenuBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.toggleMobileMenu();
         });
+        
+        // 点击导航链接后关闭菜单
+        const navLinks = Utils.$$('.nav-links a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                this.closeMobileMenu();
+            });
+        });
+        
+        // 点击外部区域关闭菜单
+        document.addEventListener('click', (e) => {
+            if (!this.mobileMenuBtn.contains(e.target) && !this.navLinks.contains(e.target)) {
+                this.closeMobileMenu();
+            }
+        });
+        
+        // ESC键关闭菜单
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.closeMobileMenu();
+            }
+        });
+    }
+    
+    toggleMobileMenu() {
+        const isActive = this.navLinks.classList.contains('active');
+        if (isActive) {
+            this.closeMobileMenu();
+        } else {
+            this.openMobileMenu();
+        }
+    }
+    
+    openMobileMenu() {
+        this.navLinks.classList.add('active');
+        this.mobileMenuBtn.classList.add('active');
+        this.mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    closeMobileMenu() {
+        this.navLinks.classList.remove('active');
+        this.mobileMenuBtn.classList.remove('active');
+        this.mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
     }
 }
 
