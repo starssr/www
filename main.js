@@ -667,7 +667,7 @@ class MainApp {
             this.controllers.interaction = new InteractionController();
             this.controllers.performance = new PerformanceController();
             
-            console.log('云云星羽网络科技工作室 - 简约科技风官网初始化完成');
+            console.log('云云星羽网络科技工作室');
         } catch (error) {
             console.error('应用初始化失败:', error);
         }
