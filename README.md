@@ -128,7 +128,7 @@ starssr/
 ### 结构化数据
 ```json
 {
-  "@context": "https://schema.org",
+  "@context": "https://starssr.com",
   "@type": "Organization",
   "name": "三亚海棠区云云星羽网络科技工作室",
   "url": "https://starssr.com",
